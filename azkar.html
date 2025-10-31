@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>أذكار الصباح والمساء | آيات</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background: #f8fcff;
+      color: #222;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.dark {
+      background: #0b2233;
+      color: #f1f1f1;
+    }
+
+    header {
+      padding: 20px;
+      background: #4feaff;
+      color: #003c4f;
+      font-size: 1.6rem;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    body.dark header {
+      background: #003c4f;
+      color: #4feaff;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit;
+      transition: 0.3s;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .buttons button {
+      background: #4feaff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #003c4f;
+      font-weight: bold;
+    }
+
+    .buttons button:hover {
+      background: #00d0ff;
+    }
+
+    body.dark .buttons button {
+      background: #007e9b;
+      color: #f1f1f1;
+    }
+
+    .azkar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .zikr {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      text-align: right;
+      line-height: 1.8;
+      position: relative;
+      transition: background 0.4s;
+    }
+
+    body.dark .zikr {
+      background: #123447;
+      color: #f8f8f8;
+    }
+
+    .zikr button {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      background: #4feaff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #003c4f;
+      font-weight: bold;
+    }
+
+    body.dark .zikr button {
+      background: #007e9b;
+      color: #f1f1f1;
+    }
+
+    .zikr.done {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+
+    .repeat {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>🌄 أذكار الصباح والمساء</header>
+  <button class="toggle-btn" id="themeToggle">🌙</button>
+
+  <div class="container">
+    <div class="buttons">
+      <button id="morningBtn">أذكار الصباح</button>
+      <button id="eveningBtn">أذكار المساء</button>
+    </div>
+
+    <div class="azkar-list" id="azkarList"></div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const morningBtn = document.getElementById("morningBtn");
+    const eveningBtn = document.getElementById("eveningBtn");
+    const azkarList = document.getElementById("azkarList");
+
+    // المظهر
+    let theme = localStorage.getItem("theme") || "light";
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+      themeToggle.textContent = "☀️";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // أذكار الصباح
+    const morningAzkar = [
+      { text: "أصبحنا وأصبح الملك لله، والحمد لله...", repeat: 1 },
+      { text: "اللهم بك أصبحنا وبك أمسينا...", repeat: 1 },
+      { text: "رضيت بالله ربًا وبالإسلام دينًا وبمحمد ﷺ نبيًا.", repeat: 3 },
+      { text: "اللهم إني أصبحت أشهدك وأشهد حملة عرشك...", repeat: 4 },
+      { text: "سبحان الله وبحمده.", repeat: 100 },
+    ];
+
+    // أذكار المساء
+    const eveningAzkar = [
+      { text: "أمسينا وأمسى الملك لله، والحمد لله...", repeat: 1 },
+      { text: "اللهم بك أمسينا وبك أصبحنا...", repeat: 1 },
+      { text: "رضيت بالله ربًا وبالإسلام دينًا وبمحمد ﷺ نبيًا.", repeat: 3 },
+      { text: "اللهم إني أمسيت أشهدك وأشهد حملة عرشك...", repeat: 4 },
+      { text: "سبحان الله وبحمده.", repeat: 100 },
+    ];
+
+    function displayAzkar(list) {
+      azkarList.innerHTML = "";
+      list.forEach((z, index) => {
+        const div = document.createElement("div");
+        div.className = "zikr";
+        div.innerHTML = `
+          <p>${z.text}</p>
+          <p class="repeat">🔁 التكرار: ${z.repeat} مرات</p>
+          <button>تم</button>
+        `;
+        div.querySelector("button").addEventListener("click", () => {
+          div.classList.toggle("done");
+        });
+        azkarList.appendChild(div);
+      });
+    }
+
+    morningBtn.addEventListener("click", () => displayAzkar(morningAzkar));
+    eveningBtn.addEventListener("click", () => displayAzkar(eveningAzkar));
+
+    // افتراضي: أذكار الصباح
+    displayAzkar(morningAzkar);
+  </script>
+</body>
+</html>

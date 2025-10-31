@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تواصل معنا | Emizia</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 60px;
+      color: #f4d03f;
+      text-shadow: 0 0 20px #f1c40f;
+    }
+
+    .social-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: 0.4s;
+    }
+
+    .social-btn::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff, #ff00c8);
+      background-size: 400%;
+      z-index: -1;
+      animation: glow 6s linear infinite;
+      filter: blur(4px);
+    }
+
+    @keyframes glow {
+      0% { background-position: 0 0; }
+      100% { background-position: 400% 0; }
+    }
+
+    .social-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .social-btn img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>تواصل معنا</h1>
+
+  <div class="social-container">
+    <!-- شعار E -->
+    <a href="https://aref45596.github.io/emizia-group/" target="_blank" class="social-btn">
+      <img src="icon.png" alt="Emizia Logo">
+    </a>
+
+    <!-- يوتيوب -->
+    <a href="http://www.youtube.com/@emizia-aref" target="_blank" class="social-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    </a>
+
+    <!-- انستغرام -->
+    <a href="https://www.instagram.com/emizia_pro?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+    </a>
+  </div>
+
+  <footer>© 2025 Emizia Group | جميع الحقوق محفوظة</footer>
+</body>
+</html>
